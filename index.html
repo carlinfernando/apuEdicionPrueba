@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <meta charset="UTF-8">
+    <!--<meta http-equiv="X-UA-Compatible" content="IE=edge">-->
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./table.css" media="screen and (min-width: 600px)"/>
+    <link rel="stylesheet" href="./desktop.css" media="screen and (min-width: 800px)"/>
+</head>
+<body onload="obtenerDatosApu()">  
+
+                <!--https://platzi.com/clases/1313-pwa-react-js/12146-el-proyecto/-->
+    <main class="container">
+        <div class="c1">
+            <table class="table" table-striped>  
+                <tr class="bg-info"> 
+                    <td><h2>TIPO</h2><h2>DESCRIPCION_INSUMOS</h2></td>
+                    <td><h2>UND_INS</h2></td>
+                    <th><h2>PRECIO_INS</h2></th>
+                </tr>
+
+                <tbody id="myTable">
+
+                </tbody>
+            </table>
+        </div>
+        <div class="c2"></div>
+        <div class="c3"></div>
+        <div class="c4"></div>
+        <div class="c5"></div>
+        
+    </main>
+    <script>
+        function obtenerDatosApu(){
+           // const url = "http://localhost:8080/v1/pa-get-apu/23"
+            const url ="https://api.instantwebtools.net/v1/passenger?page=0&size=20"
+            res = [];
+            fetch(url)
+                .then(response => response.json())
+                .then(res => {
+                    console.log(res)
+                    listaDeDatosApu(res.data)
+                })
+                .catch(error => console.log(error))
+        }
+
+        function listaDeDatosApu(result){
+            let table = document.getElementById('myTable')
+            for (var i=0; i < result.length; i++){
+                    //<td>${result[i].id}</td>
+                    //<td><input type="text" class="descripcionIns" value="${result[i].descripcionIns}" disabled="true"></td>
+                var row = `<tr>
+                    <td>${result[i].id}</td>
+                            <td><input type="text" class="desc"></td>
+                            <td><input type="text" class="u"></td>
+                            <td><input type="text" class="precio"></td>
+                                                        
+                    </tr>`
+
+                    table.innerHTML += row
+ 
+            }
+        }
+
+       /* (function () {
+            "use strict"
+            $(tablaApu).on("keyup", "input", function () {
+                var row = $(this).closest("tr");
+                var desc = row.find(".desc").val();
+            });
+        })();*/
+
+    </script>
+</body>
+</html>
